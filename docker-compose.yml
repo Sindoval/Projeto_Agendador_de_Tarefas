@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 123
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./infra/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "27017:27017"
+
+  usuario:
+    image: sindoval/usuario:latest
+    container_name: usuario
+    ports:
+      - "8081:8081"
+    depends_on:
+      - postgres
+
+  agendador-tarefas:
+    image: sindoval/agendador-tarefas:latest
+    container_name: agendador-tarefas
+    ports:
+      - "8082:8082"
+    depends_on:
+      - mongo
+
+  comunicacao:
+    image: sindoval/comunicacao:latest
+    container_name: comunicacao
+    ports:
+      - "8085:8085"
+    depends_on:
+      - postgres
+
+  notificacao:
+    image: sindoval/notificacao:latest
+    container_name: notificacao
+    ports:
+      - "8083:8083"
+
+  bff-agendador:
+    image: sindoval/bff-agendador-tarefas:latest
+    container_name: bff-agendador
+    ports:
+      - "8084:8084"
+    depends_on:
+      - usuario
+      - agendador-tarefas
+      - comunicacao

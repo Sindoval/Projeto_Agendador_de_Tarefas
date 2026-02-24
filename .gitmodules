@@ -1,0 +1,15 @@
+[submodule "bff-agendador-tarefas"]
+	path = bff-agendador-tarefas
+	url = https://github.com/Sindoval/bff-agendador-tarefas.git
+[submodule "usuario"]
+	path = usuario
+	url = https://github.com/Sindoval/usuario.git
+[submodule "agendador-tarefas"]
+	path = agendador-tarefas
+	url = https://github.com/Sindoval/agendador-tarefas.git
+[submodule "notificacao"]
+	path = notificacao
+	url = https://github.com/Sindoval/notificacao.git
+[submodule "api_comunicacao"]
+	path = api_comunicacao
+	url = https://github.com/Sindoval/api_comunicacao.git
