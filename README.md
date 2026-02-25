@@ -33,6 +33,17 @@ A aplicação é dividida nos seguintes módulos:
 * Docker e Docker Compose instalados.
 * Uma conta Gmail com "Senha de App" gerada (para o serviço de notificação).
 
+### Execução via Docker Compose (Docker Hub)
+
+> **Nota:** Os microserviços deste projeto estão hospedados no **Docker Hub**. Você **não precisa** baixar o código-fonte ou realizar builds locais. O Docker Compose baixará as imagens oficiais automaticamente.
+
+Para subir o ambiente, utilize os comandos abaixo no seu terminal:
+
+* **Subir todos os serviços em segundo plano:**
+```bash
+docker-compose up -d
+```
+
 ### 2. Configuração de Variáveis de Ambiente
 Crie um arquivo chamado `.env` na raiz do projeto e preencha com base no exemplo abaixo:
 
