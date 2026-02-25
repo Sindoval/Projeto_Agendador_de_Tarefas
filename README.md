@@ -44,3 +44,30 @@ EMAIL_REMETENTE=seu-email@gmail.com
 
 # Configurações de Banco de Dados
 DB_PASSWORD=sua_senha_segura
+
+```
+## 🔐 Configuração Obrigatória: Usuário Administrador
+
+Esta aplicação utiliza um sistema de segurança baseado em **Spring Security** e **BCrypt**. Para que o ecossistema funcione corretamente, especialmente as rotinas automáticas, você deve criar um usuário inicial.
+
+### Por que criar o usuário 'Admin'?
+O serviço `bff-agendador` possui um processo agendado (**Cron**) que roda periodicamente para buscar tarefas e disparar notificações. Para realizar essa operação, o sistema tenta se autenticar automaticamente no serviço de usuários utilizando as seguintes credenciais:
+
+* **E-mail:** `admin@admin.com`
+* **Senha:** `123456`
+
+**Atenção:** Se este usuário não for criado, o Cron apresentará erros de autenticação nos logs e as notificações por e-mail não serão enviadas.
+
+
+
+### Como criar o usuário administrador
+Como as senhas precisam ser criptografadas via aplicação para serem válidas, não recomendamos a inserção manual via SQL. Após subir os containers, execute o comando abaixo no seu terminal para registrar o administrador:
+
+```bash
+curl --location 'http://localhost:8081/usuario' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "nome": "Admin",
+    "email": "admin@admin.com",
+    "senha": "123"
+}'
